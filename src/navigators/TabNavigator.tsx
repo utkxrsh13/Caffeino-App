@@ -20,7 +20,7 @@ const TabNavigator = () => {
       tabBarShowLabel: false,
       tabBarStyle: styles.tabBarStyle,
       tabBarBackground: () => (
-      <BlurView overlayColor='' blurAmount={10} style={styles.blurViewStyle} />
+      <BlurView overlayColor='' blurAmount={5} style={styles.blurViewStyle} />
       )
       }}>
       <Tab.Screen name="Home" component={HomeScreen}
@@ -83,7 +83,7 @@ export default TabNavigator;
 
 const styles = StyleSheet.create({
   tabBarStyle: {
-    height: 75,
+    height: 70,
     position: 'absolute',
     backgroundColor: COLORS.primaryBlackRGBA,
     borderTopWidth: 0,

@@ -12,7 +12,7 @@ const HeaderBar:React.FC<HeaderBarProps> = ({title}) => {
   return (
     <View style={styles.HeaderBarContainer}>
       <GrandientBgIcon name={'menu'} size={FONTSIZE.size_16} color={COLORS.primaryGreyHex}/>
-      <Text style={styles.HeaderText}>{title}</Text>
+      <Text style={styles.HeaderText}>{}</Text>
       <ProfilePic/>
     </View>
   )
