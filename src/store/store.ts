@@ -63,10 +63,61 @@ export const useStore = create(
           })
         ),
         addTofavList:(type:string, id:string) =>set(produce(state=>{
-          
-        }))
-    }),
+          if(type == 'Coffee'){
+            for(let i =0;i<state.CoffeeList.length;i++){
+              if(state.CoffeeList[i].id == id){
+                if(state.CoffeeList[i].favourite == false){
+                  state.CoffeeList[i].favourite = true;
+                  state.FavouritesList.unshift(state.CoffeeList[i])
+                }
+                break;
+              }
+            }
+          }else if(type == 'Bean'){
+            for(let i =0;i<state.BeanList.length;i++){
+              if(state.BeanList[i].id == id){
+                if(state.BeanList[i].favourite == false){
+                  state.BeanList[i].favourite = true;
+                  state.FavouritesList.unshift(state.BeanList[i])
+                }
+                break;
+              }
+            }
+          }
+        }),
+      ),
+      deleteFromFavorite:(type:string, id:string)=>set(produce(state=>{
+        if(type == 'Coffee'){
+          for(let i =0;i<state.CoffeeList.length;i++){
+            if(state.CoffeeList[i].id == id){
+              if(state.CoffeeList[i].favourite == true){
+                state.CoffeeList[i].favourite = false;
+              }
+              break;
+            }
+          }
+        }else if(type == 'Bean'){
+          for(let i =0;i<state.BeanList.length;i++){
+            if(state.BeanList[i].id == id){
+              if(state.BeanList[i].favourite == true){
+                state.BeanList[i].favourite = false;
+              }
+              break;
+            }
+          }
+        }
+        let spliceIndex = -1;
+        for(let i =0;i<state.FavouritesList.length;i++){
+          if(state.FavouritesList[i].id == id){
+            spliceIndex = i;
+            break;
+          }
+        }
+        state.FavouritesList.splice(spliceIndex, 1);
+      })
+    )
     
+    }),
     {
       name: "coffee-app",
       storage: createJSONStorage(() => AsyncStorage),

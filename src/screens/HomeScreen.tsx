@@ -48,7 +48,7 @@ const getCoffeeList = (category: string, data: any) => {
   return coffeeList;
 };
 
-const HomeScreen = ({navigation}:any) => {
+const HomeScreen = ({navigation}: any) => {
   const CoffeeList = useStore((state: any) => state.CoffeeList);
   const BeanList = useStore((state: any) => state.BeanList);
 
@@ -71,11 +71,15 @@ const HomeScreen = ({navigation}:any) => {
   const tabBarHeight = useBottomTabBarHeight();
 
   const searchCoffee = (searchText: string) => {
-    if(searchText!=''){
+    if (searchText != '') {
       ListRef?.current.scrollToOffset({offset: 0, animated: true});
     }
     setCategoryIndex({index: 0, category: categories[0]});
-    setSortedCoffee([...CoffeeList.filter((item: any) => item.name.toLowerCase().includes(searchText.toLowerCase()))]);
+    setSortedCoffee([
+      ...CoffeeList.filter((item: any) =>
+        item.name.toLowerCase().includes(searchText.toLowerCase()),
+      ),
+    ]);
   };
 
   const resetCoffee = () => {
@@ -84,7 +88,7 @@ const HomeScreen = ({navigation}:any) => {
     setCategoryIndex({index: 0, category: categories[0]});
     setSortedCoffee([...CoffeeList]);
     setSearchText('');
-  }
+  };
 
   return (
     <View style={styles.Screencontainer}>
@@ -116,11 +120,11 @@ const HomeScreen = ({navigation}:any) => {
             style={styles.SearchInput}
             placeholder="Find your coffee"
             value={searchText}
-            onChangeText={text =>{ 
-              setSearchText(text)
-              searchCoffee(text)
+            onChangeText={text => {
+              setSearchText(text);
+              searchCoffee(text);
             }}
-              placeholderTextColor={COLORS.primaryLightGreyHex}
+            placeholderTextColor={COLORS.primaryLightGreyHex}
           />
           {searchText.length > 0 ? (
             <TouchableOpacity onPress={() => resetCoffee()}>
@@ -182,25 +186,31 @@ const HomeScreen = ({navigation}:any) => {
           data={sortedCoffee}
           contentContainerStyle={styles.FlatListContainer}
           keyExtractor={item => item.id}
-          renderItem={({item}) => {return(
-            <TouchableOpacity onPress={()=>{
-              navigation.push('Detail')
-            }
-            }>
-              <CoffeeCard
-                name={item.name}
-                id={item.id}
-                index={item.index}
-                type={item.type}
-                roasted={item.roasted}
-                imagelink_square={item.imagelink_square}
-                price={item.prices[2]}
-                special_ingredient={item.special_ingredient}
-                average_rating={item.average_rating}
-                buttonPressHandler={() => {}}
-              />
-            </TouchableOpacity>
-  )}}
+          renderItem={({item}) => {
+            return (
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.push('Detail', {
+                    index: item.index,
+                    id: item.id,
+                    type: item.type,
+                  });
+                }}>
+                <CoffeeCard
+                  name={item.name}
+                  id={item.id}
+                  index={item.index}
+                  type={item.type}
+                  roasted={item.roasted}
+                  imagelink_square={item.imagelink_square}
+                  special_ingredient={item.special_ingredient}
+                  average_rating={item.average_rating}
+                  price={item.prices[2]}
+                  buttonPressHandler={() => {}}
+                />
+              </TouchableOpacity>
+            );
+          }}
         />
         <Text style={styles.CoffeeBeansTitle}>Coffee Beans</Text>
 
@@ -215,9 +225,14 @@ const HomeScreen = ({navigation}:any) => {
           ]}
           keyExtractor={item => item.id}
           renderItem={({item}) => (
-            <TouchableOpacity onPress={()=>{
-              navigation.push('Detail')
-            }}>
+            <TouchableOpacity
+              onPress={() => {
+                navigation.push('Detail', {
+                  index: item.index,
+                  id: item.id,
+                  type: item.type,
+                });
+              }}>
               <CoffeeCard
                 name={item.name}
                 id={item.id}
@@ -298,11 +313,11 @@ const styles = StyleSheet.create({
     paddingVertical: SPACING.space_15,
     paddingHorizontal: SPACING.space_30,
   },
-  EmptyListContainer:{
-    width:Dimensions.get('window').width - SPACING.space_30*2,
-    justifyContent:'center',
-    alignItems:'center',
-    paddingVertical:SPACING.space_28*4
+  EmptyListContainer: {
+    width: Dimensions.get('window').width - SPACING.space_30 * 2,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingVertical: SPACING.space_28 * 4,
   },
   CoffeeBeansTitle: {
     fontSize: FONTSIZE.size_18,
