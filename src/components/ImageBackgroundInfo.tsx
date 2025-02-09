@@ -19,7 +19,7 @@ import CustomIcon from './customIcon';
 // import { ImageBackgroundProps } from 'react-native';
 
 interface ImageBackgroundInfoProps {
-  EnableBackHnadler: boolean;
+  EnableBackHnadler : boolean;
   imagelink_portrait: ImageProps;
   type: string;
   id: string;

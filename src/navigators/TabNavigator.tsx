@@ -62,7 +62,7 @@ const TabNavigator = () => {
       )
       }}
       />
-      <Tab.Screen name="OrderHistory" component={OrderHistoryScreen}
+      <Tab.Screen name="History" component={OrderHistoryScreen}
       options={{
       tabBarIcon: ({focused,color,size}) => (
         <View style={{ marginTop: 5 }}>
